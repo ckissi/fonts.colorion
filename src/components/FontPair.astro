@@ -1,0 +1,96 @@
+---
+interface Props {
+  heading: string;
+  headingFont: string;
+  bodyFont: string;
+  description: string;
+}
+
+const { heading, headingFont, bodyFont, description } = Astro.props;
+
+const headingFontName = headingFont.split('-')[1];
+const bodyFontName = bodyFont.split('-')[1];
+
+const cssCode = `/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=${headingFontName}:wght@400;700&family=${bodyFontName}:wght@400;700&display=swap');
+
+/* CSS Variables */
+:root {
+  --heading-font: '${headingFontName}', ${headingFontName.toLowerCase().includes('serif') ? 'serif' : 'sans-serif'};
+  --body-font: '${bodyFontName}', ${bodyFontName.toLowerCase().includes('serif') ? 'serif' : 'sans-serif'};
+}
+
+/* Font Classes */
+.heading {
+  font-family: var(--heading-font);
+}
+.body-text {
+  font-family: var(--body-font);
+}`;
+---
+
+<div class="bg-white rounded-lg shadow-md p-8 hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
+  <div class="flex-grow">
+    <h2 class={`text-3xl mb-4 ${headingFont}`}>{heading}</h2>
+    <p class={`text-gray-600 ${bodyFont}`}>
+      {description}
+    </p>
+  </div>
+  
+  <div class="mt-6 pt-6 border-t border-gray-100">
+    <div class="flex justify-between items-start">
+      <p class="text-sm text-gray-500">
+        <span class="font-semibold">Heading:</span> {headingFontName}
+        <br />
+        <span class="font-semibold">Body:</span> {bodyFontName}
+      </p>
+      <button
+        class="copy-button bg-indigo-50 text-indigo-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-100 transition-colors duration-200"
+        data-code={cssCode}
+      >
+        Copy CSS
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupCopyButtons() {
+    document.querySelectorAll('.copy-button').forEach(button => {
+      button.addEventListener('click', async () => {
+        const code = button.getAttribute('data-code');
+        if (code) {
+          try {
+            await navigator.clipboard.writeText(code);
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.classList.remove('bg-indigo-50', 'text-indigo-600');
+            button.classList.add('bg-green-50', 'text-green-600');
+            
+            setTimeout(() => {
+              button.textContent = originalText;
+              button.classList.remove('bg-green-50', 'text-green-600');
+              button.classList.add('bg-indigo-50', 'text-indigo-600');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+            button.classList.add('bg-red-50', 'text-red-600');
+            
+            setTimeout(() => {
+              button.textContent = 'Copy CSS';
+              button.classList.remove('bg-red-50', 'text-red-600');
+              button.classList.add('bg-indigo-50', 'text-indigo-600');
+            }, 2000);
+          }
+        }
+      });
+    });
+  }
+
+  // Setup on initial load
+  setupCopyButtons();
+
+  // Setup on client-side navigation (if applicable)
+  document.addEventListener('astro:page-load', setupCopyButtons);
+</script>

@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FontPair from '../components/FontPair.astro';
+import { fontPairs } from '../data/fontPairs';
+---
+
+<Layout title="Font Pair Combinations">
+  <main class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h1 class="text-5xl font-playfair font-bold text-gray-900 mb-4">Beautiful Font Pairs</h1>
+        <p class="text-xl text-gray-600 font-source">Discover harmonious typography combinations for your next project</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {fontPairs.map((pair) => (
+          <FontPair
+            heading={pair.heading}
+            headingFont={pair.headingFont}
+            bodyFont={pair.bodyFont}
+            description={pair.description}
+          />
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>

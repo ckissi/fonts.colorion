@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Beautiful Font Pair Combinations" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Aeonik:wght@400;500;700&family=Cabinet+Grotesk:wght@400;700&family=Clash+Display:wght@400;600&family=Cormorant:wght@400;700&family=DM+Serif+Display&family=Fraunces:opsz,wght@9..144,400;9..144,700&family=General+Sans:wght@400;600&family=GRTSK+Mega:wght@400;700&family=IBM+Plex+Sans:wght@400;600&family=Inter:wght@400;600&family=Karla:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Manrope:wght@400;700&family=Newsreader:opsz,wght@6..72,400;6..72,700&family=Nunito:wght@400;700&family=Open+Sans:wght@400;700&family=Oswald:wght@400;700&family=Outfit:wght@400;700&family=Plus+Jakarta+Sans:wght@400;700&family=Poppins:wght@400;600&family=PT+Serif:wght@400;700&family=Public+Sans:wght@400;700&family=Rubik:wght@400;700&family=Satoshi:wght@400;700&family=Sentient:wght@400;700&family=Sora:wght@400;700&family=Space+Grotesk:wght@400;700&family=Spectral:wght@400;700&family=Supreme:wght@400;700&family=Switzer:wght@400;700&family=Work+Sans:wght@400;700&family=Zodiak:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="bg-gray-50">
+    <slot />
+    <div id="toast" class="fixed bottom-4 right-4 transform translate-y-full opacity-0 transition-all duration-300 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg"></div>
+  </body>
+</html>
